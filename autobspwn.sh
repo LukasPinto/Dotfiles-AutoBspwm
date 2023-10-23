@@ -54,7 +54,7 @@ echo -ne "Instalando polybar"
 sudo make install
 
 echo -ne "Copiando Archivos de Configuracion la polybar"
-cp -r $path/polybar/ ~/.config/polybar
+cp -r $path/polybar/ ~/.config/
 
 echo -ne "Instalando dependecias\n"
 sudo apt update
