@@ -81,7 +81,7 @@ rm debian-binary control.tar.xz data.tar.xz control.tar.zst data.tar.zst
 echo -ne "Instalando Kitty para $user"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 echo -ne "Instalando kitty para root"
-sudo curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+sudo -u root curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
 echo -ne "copiando archivos de configuracion para kitty"
 cp $path/kitty/* ~/.config/kitty/
@@ -96,17 +96,17 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 echo -ne "Instalando p10k para root"
-sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-sudo echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+sudo -u root git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+sudo -u root echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 echo -ne "Copiando archivos de configuracion para zsh y p10k"
-sudo rm ~./.zshrc 
-sudo rm ~./p10k.zsh
-sudo cp $path/zsh/.zshrc /root/.zshrc
-sudo cp $path/zsh/.p10k.zsh /root/.p10k.zsh
-sudo chown $user:$user /root
-sudo chown $user:$user /root/.cache -R
-sudo chown $user:$user /root/.local -R
+sudo -u root rm ~./.zshrc 
+sudo -u root rm ~./p10k.zsh
+sudo -u root cp $path/zsh/.zshrc /root/.zshrc
+sudo -u root cp $path/zsh/.p10k.zsh /root/.p10k.zsh
+sudo -u root chown $user:$user /root
+sudo -u root chown $user:$user /root/.cache -R
+sudo -u root chown $user:$user /root/.local -R
 ln -sf /root/.zshrc ~/.zshrc
 ln -sf /root/.p10k.zsh ~/.p10k.zsh
 
