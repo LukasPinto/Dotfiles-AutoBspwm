@@ -5,8 +5,8 @@ echo -ne "Actualizando paquetes \n"
 
 user="$1"
 
-sudo apt install build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev
-sudo apt install feh
+sudo apt install build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev -y
+sudo apt install feh -y
 path="$(pwd)"
 
 mkdir install
@@ -39,7 +39,7 @@ echo -ne "Instalando dependencias"
 
 
 # hay una dependencia que da problema hay que sacarla
-sudo apt install cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libnl-genl-3-dev
+sudo apt install cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libnl-genl-3-dev -y
 
 echo -ne "Clonando polybar"
 cd $path/install
@@ -58,7 +58,7 @@ cp -r $path/polybar/ ~/.config/
 
 echo -ne "Instalando dependecias\n"
 sudo apt update
-sudo apt install meson libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev libxcb-glx0-dev libuv1-dev
+sudo apt install meson libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev libxcb-glx0-dev libuv1-dev -y
 
 echo -ne "Instalando picom\n"
 cd $path/install
@@ -79,7 +79,7 @@ echo -ne "Instalando rofi"
 sudo apt install rofi
 echo -ne "Copiando Archivos de Configuracion para rofi"
 mkdir -p ~/.config/rofi/themes/
-cp $path/polybar/shapes/scripts/rofi/* ~./config/rofi/themes/
+cp $path/polybar/shapes/scripts/rofi/* ~/.config/rofi/themes/
 
 #instalar bat , lsd, fzf y ranger
 echo -ne "Instalando bat"
@@ -115,7 +115,7 @@ sudo ln -sf ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
 sudo ln -sf ~/.config/kitty/current-theme.conf /root/.config/kitty/current-theme.conf
 
 echo -ne "Instalando zsh"
-sudo bash -c "apt install zsh"
+sudo bash -c "apt install zsh -y"
 
 echo -ne "Instalando p10k para $user"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
