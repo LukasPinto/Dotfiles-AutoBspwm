@@ -143,5 +143,13 @@ cd $path/install
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
 sudo bash -c "cd /usr/local/share/fonts/; mv $path/install/Hack.zip . ; unzip Hack.zip; rm Hack.zip;fc-cache -v"
 
+cd $path/install
+git clone --depth=1 https://github.com/adi1090x/polybar-themes.github
+cd polybar-themes
+chmod +x setup.sh
+./setup.sh
+rm -rf ~/.config/polybar/shapes/
+cp -r $path/polybar/shapes ~/.config/polybar/
+rm -rf $path/install
 # revisar si el networkmanager_dmenu es necesario
 
