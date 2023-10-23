@@ -107,8 +107,13 @@ sudo bash -c "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~
 sudo bash -c "echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc"
 
 echo -ne "Copiando archivos de configuracion para zsh y p10k"
-sudo bash -c "rm ~./.zshrc"
-sudo bash -c "rm ~./p10k.zsh"
+if [ -f /root/.zshrc ];then
+  sudo rm /root/.zshrc
+fi
+
+if [ -f /root/.p10k.zsh ];then
+  sudo rm /root/.p10k.zsh
+fi
 sudo bash -c "cp $path/zsh/.zshrc /root/.zshrc"
 sudo bash -c "cp $path/zsh/.p10k.zsh /root/.p10k.zsh"
 ln -sf /root/.zshrc ~/.zshrc
