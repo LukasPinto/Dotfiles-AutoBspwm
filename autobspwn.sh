@@ -78,10 +78,16 @@ zstd -d < data.tar.zst | xz > data.tar.xz
 ar -m -c -a sdsd "lsd_1.0.0_amd64"_repacked.deb debian-binary control.tar.xz data.tar.xz
 rm debian-binary control.tar.xz data.tar.xz control.tar.zst data.tar.zst
 
+
+sudo -u root chown $user:$user /root
+sudo -u root chown $user:$user /root/.cache -R
+sudo -u root chown $user:$user /root/.local -R
+
+
 echo -ne "Instalando Kitty para $user"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 echo -ne "Instalando kitty para root"
-sudo -u root curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+sudo bash "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
 
 echo -ne "copiando archivos de configuracion para kitty"
 cp $path/kitty/* ~/.config/kitty/
@@ -89,24 +95,21 @@ sudo ln -sf ~/.config/kitty/kitty.conf /root/kitty/kitty.conf
 sudo ln -sf ~/.config/kitty/current-theme.conf /root/kitty/current-theme.conf
 
 echo -ne "Instalando zsh"
-sudo apt install zsh
+sudo bash -c "apt install zsh"
 
 echo -ne "Instalando p10k para $user"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 echo -ne "Instalando p10k para root"
-sudo -u root git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-sudo -u root echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+sudo bash -c "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k"
+sudo bash -c "echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc"
 
 echo -ne "Copiando archivos de configuracion para zsh y p10k"
-sudo -u root rm ~./.zshrc 
-sudo -u root rm ~./p10k.zsh
-sudo -u root cp $path/zsh/.zshrc /root/.zshrc
-sudo -u root cp $path/zsh/.p10k.zsh /root/.p10k.zsh
-sudo -u root chown $user:$user /root
-sudo -u root chown $user:$user /root/.cache -R
-sudo -u root chown $user:$user /root/.local -R
+sudo bash -c "rm ~./.zshrc"
+sudo bash -c "rm ~./p10k.zsh"
+sudo bash -c "cp $path/zsh/.zshrc /root/.zshrc"
+sudo bash -c "cp $path/zsh/.p10k.zsh /root/.p10k.zsh"
 ln -sf /root/.zshrc ~/.zshrc
 ln -sf /root/.p10k.zsh ~/.p10k.zsh
 
