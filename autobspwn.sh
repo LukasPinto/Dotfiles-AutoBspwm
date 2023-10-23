@@ -92,8 +92,8 @@ sudo bash -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/std
 
 echo -ne "copiando archivos de configuracion para kitty"
 cp $path/kitty/* ~/.config/kitty/
-sudo ln -sf ~/.config/kitty/kitty.conf /root/kitty/kitty.conf
-sudo ln -sf ~/.config/kitty/current-theme.conf /root/kitty/current-theme.conf
+sudo ln -sf ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
+sudo ln -sf ~/.config/kitty/current-theme.conf /root/.config/kitty/current-theme.conf
 
 echo -ne "Instalando zsh"
 sudo bash -c "apt install zsh"
