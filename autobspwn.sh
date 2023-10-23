@@ -87,7 +87,8 @@ sudo -u root chown $user:$user /root/.local -R
 echo -ne "Instalando Kitty para $user"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 echo -ne "Instalando kitty para root"
-sudo bash "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
+sudo bash -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
+
 
 echo -ne "copiando archivos de configuracion para kitty"
 cp $path/kitty/* ~/.config/kitty/
