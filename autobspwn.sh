@@ -69,6 +69,11 @@ meson --buildtype=release . build
 ninja -C build
 sudo ninja -C build install
 
+echo -ne "Copiando Archivos de Configuracion para picom\n"
+mkdir ~/.config/picom
+cp $path/picom/* ~/.config/picom/
+
+
 
 echo -ne "Instalando rofi"
 sudo apt install rofi
