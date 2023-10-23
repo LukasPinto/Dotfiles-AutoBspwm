@@ -95,7 +95,7 @@ zstd -d < control.tar.zst | xz > control.tar.xz
 zstd -d < data.tar.zst | xz > data.tar.xz
 ar -m -c -a sdsd "lsd_1.0.0_amd64"_repacked.deb debian-binary control.tar.xz data.tar.xz
 rm debian-binary control.tar.xz data.tar.xz control.tar.zst data.tar.zst
-dpkg -i "lsd_1.0.0_amd64_repacked.deb"
+sudo dpkg -i "lsd_1.0.0_amd64_repacked.deb"
 
 sudo -u root chown $user:$user /root
 sudo -u root chown $user:$user /root/.cache -R
