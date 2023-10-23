@@ -41,15 +41,14 @@ echo -ne "Instalando dependencias"
 # hay una dependencia que da problema hay que sacarla
 sudo apt install cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libnl-genl-3-dev -y
 
-echo -ne "Clonando polybar"
+echo -ne "Clonando polybar e instalando"
 cd $path/install
 git clone --recursive https://github.com/polybar/polybar
 cd polybar/
 mkdir build
 cd build/
 cmake ..
-make -j3
-echo -ne "Instalando polybar"
+make -j$(nproc)
 sudo make install
 
 echo -ne "Copiando Archivos de Configuracion la polybar"
