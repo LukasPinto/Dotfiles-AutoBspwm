@@ -138,13 +138,14 @@ ln -sf /root/.zshrc ~/.zshrc
 ln -sf /root/.p10k.zsh ~/.p10k.zsh
 
 pip3 install pywal
+sudo pip3 install pywal
 sudo apt install calc
 cd $path/install
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
 sudo bash -c "cd /usr/local/share/fonts/; mv $path/install/Hack.zip . ; unzip Hack.zip; rm Hack.zip;fc-cache -v"
 
 cd $path/install
-git clone --depth=1 https://github.com/adi1090x/polybar-themes.github
+git clone --depth=1 https://github.com/adi1090x/polybar-themes.git
 cd polybar-themes
 chmod +x setup.sh
 ./setup.sh
