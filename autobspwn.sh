@@ -48,8 +48,7 @@ cd polybar/
 mkdir build
 cd build/
 cmake ..
-make -j$(nproc)
-
+make -j3
 echo -ne "Instalando polybar"
 sudo make install
 
@@ -76,7 +75,7 @@ cp $path/picom/* ~/.config/picom/
 
 
 echo -ne "Instalando rofi"
-sudo apt install rofi
+sudo apt install rofi -y
 echo -ne "Copiando Archivos de Configuracion para rofi"
 mkdir -p ~/.config/rofi/themes/
 cp $path/polybar/shapes/scripts/rofi/* ~/.config/rofi/themes/
@@ -89,14 +88,14 @@ echo -ne "Instalando lsd"
 wget "https://github.com/lsd-rs/lsd/releases/download/v1.0.0/lsd_1.0.0_amd64.deb"
 
 echo -ne "Instalando zstd para crear nuevo .deb"
-sudo apt install zstd
+sudo apt install zstd -y
 set -e
 ar x "lsd_1.0.0_amd64.deb"
 zstd -d < control.tar.zst | xz > control.tar.xz
 zstd -d < data.tar.zst | xz > data.tar.xz
 ar -m -c -a sdsd "lsd_1.0.0_amd64"_repacked.deb debian-binary control.tar.xz data.tar.xz
 rm debian-binary control.tar.xz data.tar.xz control.tar.zst data.tar.zst
-
+dpkg -i "lsd_1.0.0_amd64_repacked.deb"
 
 sudo -u root chown $user:$user /root
 sudo -u root chown $user:$user /root/.cache -R
