@@ -27,7 +27,7 @@ make
 sudo make install
 
 echo -ne "Copiando Archivos de Configuracion de Bspwm y Sxhdk"
-sudo apt install bspwm
+sudo apt install bspwm -y
 cd $path
 mkdir ~/.config/sxhkd
 cp -r $path/bspwm/ ~/.config/bspwm/
@@ -40,7 +40,7 @@ echo -ne "Instalando dependencias"
 
 # hay una dependencia que da problema hay que sacarla
 sudo apt install cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libnl-genl-3-dev -y
-sudo apt-get install libuv1-dev
+sudo apt-get install libuv1-dev -y
 
 echo -ne "Clonando polybar e instalando"
 cd $path/install
@@ -139,7 +139,7 @@ ln -sf /root/.p10k.zsh ~/.p10k.zsh
 
 pip3 install pywal
 sudo pip3 install pywal
-sudo apt install calc
+sudo apt install calc -y
 cd $path/install
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
 sudo bash -c "cd /usr/local/share/fonts/; mv $path/install/Hack.zip . ; unzip Hack.zip; rm Hack.zip;fc-cache -v"
@@ -152,5 +152,9 @@ chmod +x setup.sh
 rm -rf ~/.config/polybar/shapes/
 cp -r $path/polybar/shapes ~/.config/polybar/
 rm -rf $path/install
+
+sudo apt install zsh-syntax-highlighting zsh-autosuggestions -y 
+
+
 # revisar si el networkmanager_dmenu es necesario
 
