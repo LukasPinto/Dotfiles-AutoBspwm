@@ -89,7 +89,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
-
+setopt histignorealldups sharehistory
 # Useful alias for benchmarking programs
 # require install package "time" sudo apt install time
 # alias time="/usr/bin/time -f '\t%E real,\t%U user,\t%S sys,\t%K amem,\t%M mmem'"
