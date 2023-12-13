@@ -6,7 +6,7 @@ echo -ne "Actualizando paquetes \n"
 if [[ "$1" ]];then
   user="$1"
 
-  sudo apt install build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev -y
+  sudo apt install build-essential git vim libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev -y
   sudo apt install feh -y
   path="$(pwd)"
 
@@ -26,6 +26,7 @@ if [[ "$1" ]];then
   cd ../sxhkd/
   make
   sudo make install
+  sudo apt install libxinerama1 libxinerama-dev
 
   echo -ne "Copiando Archivos de Configuracion de Bspwm y Sxhdk"
   sudo apt install bspwm -y
@@ -58,7 +59,7 @@ if [[ "$1" ]];then
 
   echo -ne "Instalando dependecias\n"
   sudo apt update
-  sudo apt install meson libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev libxcb-glx0-dev -y
+  sudo apt install meson libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev libxcb-glx0-dev libpcre3 libpcre3-dev -y
 
   echo -ne "Instalando picom\n"
   cd $path/install
@@ -87,16 +88,17 @@ if [[ "$1" ]];then
   sudo dpkg -i "bat_0.24.0_amd64.deb"
   echo -ne "Instalando lsd"
   wget "https://github.com/lsd-rs/lsd/releases/download/v1.0.0/lsd_1.0.0_amd64.deb"
-
-  echo -ne "Instalando zstd para crear nuevo .deb"
-  sudo apt install zstd -y
-  set -e
-  ar x "lsd_1.0.0_amd64.deb"
-  zstd -d < control.tar.zst | xz > control.tar.xz
-  zstd -d < data.tar.zst | xz > data.tar.xz
-  ar -m -c -a sdsd "lsd_1.0.0_amd64"_repacked.deb debian-binary control.tar.xz data.tar.xz
-  rm debian-binary control.tar.xz data.tar.xz control.tar.zst data.tar.zst
-  sudo dpkg -i "lsd_1.0.0_amd64_repacked.deb"
+  sudo dpkg -i "lsd_1.0.0_amd64.deb"
+  # descomentar esto y comentar si se esta parrot y comentar la linea de arriba
+  # echo -ne "Instalando zstd para crear nuevo .deb"
+  # sudo apt install zstd -y
+  # set -e
+  # ar x "lsd_1.0.0_amd64.deb"
+  # zstd -d < control.tar.zst | xz > control.tar.xz
+  # zstd -d < data.tar.zst | xz > data.tar.xz
+  # ar -m -c -a sdsd "lsd_1.0.0_amd64"_repacked.deb debian-binary control.tar.xz data.tar.xz
+  # rm debian-binary control.tar.xz data.tar.xz control.tar.zst data.tar.zst
+  # sudo dpkg -i "lsd_1.0.0_amd64_repacked.deb"
 
   sudo -u root chown $user:$user /root
   sudo -u root chown $user:$user /root/.cache -R
@@ -106,6 +108,7 @@ if [[ "$1" ]];then
   echo -ne "Instalando Kitty para $user"
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
   echo -ne "Instalando kitty para root"
+  mkdir -p /root/.local/kitty.app
   sudo bash -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
 
 
@@ -160,6 +163,29 @@ if [[ "$1" ]];then
   sudo usermod --shell /usr/bin/zsh root
 
   # revisar si el networkmanager_dmenu es necesario
+
+  echo -e "\n [+] Instalando fzf, presione si a todo, para user y root."
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+  cd ~/.fzf
+  ./install 
+
+  sudo bash -c "git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+cd ~/.fzf
+./install 
+"
+  wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+  sudo chown root:root ./nvim.appimage
+  sudo mv ./nvim.appimage /usr/bin/nvim
+  chmod u+x /usr/bin/nvim
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  sudo bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash"
+  nvm install node
+  sudo bash -c "nvm install node"
+  git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
+  sudo bash -c 'git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim'
+  sudo chown -R root:root /usr/local/share/zsh/site-functions
 else
   echo "Uso: ./autobspwn.sh {user}"
 fi
